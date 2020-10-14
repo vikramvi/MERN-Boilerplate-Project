@@ -48,6 +48,44 @@ app.post('/api/users/register', (req, res) => {
     })
 })
 
+app.post('/api/users/login', (req, res) => {
+    //find email
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if (!user)
+            return res.json({
+                loginSuccess: false,
+                message: "Auth failed, email not found"
+            })
+
+        //compare password
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if (!isMatch) {
+                return res.json({
+                    loginSuccess: false,
+                    message: "wrong password"
+                })
+            }
+        })
+
+        //generate token
+        user.generateToken((err, user) => {
+            try {
+                if (err) return res.status(400).send(err);
+                res
+                    .cookie("x_auth", user.token)
+                    .status(200)
+                    .json({
+                        loginSuccess: true
+                    })
+                console.log("user.token ", user.token);
+            } catch (e) {
+                console.log(e);
+            }
+        })
+    })
+})
+
+
 
 //“Hello World!” app with Node.js and Express
 //https://medium.com/@adnanrahic/hello-world-app-with-node-js-and-express-c1eb7cfa8a30
