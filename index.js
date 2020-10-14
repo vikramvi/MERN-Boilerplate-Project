@@ -7,13 +7,14 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { User } = require('./models/user');
 
+const config = require('./config/key');
 
 //Node.js Everywhere with Environment Variables!
 //https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
 dotenv.config();
 //console.log(process.env.DB_USERNAME);
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.suqn1.mongodb.net/NatureDB?retryWrites=true&w=majority`,
+mongoose.connect(config.mongoURI,
     { useNewUrlParser: true })
     .then(() => console.log('DB Connected'))
     .catch(err => console.error(err));
