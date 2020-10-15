@@ -9,6 +9,8 @@ const { User } = require('./models/user');
 
 const config = require('./config/key');
 
+const { auth } = require('./middleware/auth');
+
 //Node.js Everywhere with Environment Variables!
 //https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
 dotenv.config();
@@ -35,7 +37,19 @@ app.use(express.urlencoded({ extended: true }));
 //cookie parser
 app.use(cookieParser());
 
+//authenticate use with token
+app.use('/api/users/auth', auth, (req, res) => {
+    res.status(200).json({
+        _id: req._id,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role
+    })
+})
 
+//create new user
 app.post('/api/users/register', (req, res) => {
     const user = new User(req.body);
 
@@ -48,6 +62,7 @@ app.post('/api/users/register', (req, res) => {
     })
 })
 
+//login with existing user credentials
 app.post('/api/users/login', (req, res) => {
     //find email
     User.findOne({ email: req.body.email }, (err, user) => {
