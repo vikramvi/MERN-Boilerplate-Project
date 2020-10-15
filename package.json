@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "MERN Boilerplate Project",
   "main": "index.js",
+  "engine":{
+    "node":"14.8.0",
+    "npm":"6.14.7"
+  },
   "scripts": {
-    "start": "node index.js",
-    "backend": "nodemon index.js"
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js"
   },
   "author": "Vikram Ingleshwar",
   "license": "ISC",
