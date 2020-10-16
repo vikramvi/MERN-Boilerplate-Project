@@ -1,14 +1,14 @@
 import React from 'react';
-//import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import LoginPage from "./views/LoginPage/LoginPage";
+
 
 function App() {
   return (
     <div>
-      Concurrent testing
-      { /* <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} /> 
-      </Switch> */ }
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+      </Switch>
     </div >
   );
 }
