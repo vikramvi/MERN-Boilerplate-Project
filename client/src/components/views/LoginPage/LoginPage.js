@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 
 
@@ -141,7 +141,7 @@ function LoginPage(props) {
                                         Log in
                                     </Button>
                                 </div>
-                                {/* Or <a href="/register">register now!</a> */}
+                                Or <Link to="/register">register now!</Link>
                             </Form.Item>
                         </form>
                     </div>
